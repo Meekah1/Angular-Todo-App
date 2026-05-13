@@ -6,12 +6,16 @@ import { Todo } from '../models/todo.model';
   standalone: true,
   template: `
     <div class="todo-item" [class.completed]="todo.completed">
-      <input
-        type="checkbox"
-        [checked]="todo.completed"
-        (change)="toggle.emit()"
-      />
-      <span>{{ todo.title }}</span>
+      <div class="left-section">
+        <input
+          type="checkbox"
+          [checked]="todo.completed"
+          (change)="toggle.emit()"
+        />
+
+        <span>{{ todo.title }}</span>
+      </div>
+
       <button (click)="delete.emit()">Delete</button>
     </div>
   `,
@@ -19,23 +23,52 @@ import { Todo } from '../models/todo.model';
     `
       .todo-item {
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        gap: 10px;
-        padding: 8px;
-        border-bottom: 1px solid #eee;
+        background: rgba(255, 255, 255, 0.15);
+        padding: 15px;
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+        transition: 0.3s ease;
       }
-      .completed {
-        text-decoration: line-through;
-        opacity: 0.7;
+
+      .todo-item:hover {
+        transform: translateY(-2px);
       }
-      button {
-        margin-left: auto;
-        background: #ff4444;
-        color: white;
-        border: none;
-        padding: 4px 8px;
-        border-radius: 4px;
+
+      .left-section {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      input[type='checkbox'] {
+        width: 18px;
+        height: 18px;
         cursor: pointer;
+      }
+
+      span {
+        font-size: 16px;
+      }
+
+      .completed span {
+        text-decoration: line-through;
+        opacity: 0.6;
+      }
+
+      button {
+        border: none;
+        background: #ff4d4d;
+        color: white;
+        padding: 8px 14px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s ease;
+      }
+
+      button:hover {
+        background: #ff1f1f;
       }
     `,
   ],

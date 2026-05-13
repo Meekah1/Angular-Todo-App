@@ -9,8 +9,14 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, TodoItemComponent, RouterModule],
   template: `
-    <h2>My Todos</h2>
-    <div *ngIf="todos.length === 0">No todos yet!</div>
+    <div class="header">
+      <h2>My Todos</h2>
+
+      <a routerLink="/add" class="add-btn">+ Add Todo</a>
+    </div>
+
+    <div *ngIf="todos.length === 0" class="empty-state">No todos yet 🚀</div>
+
     <div *ngFor="let todo of todos" class="todo-container">
       <app-todo-item
         [todo]="todo"
@@ -18,21 +24,43 @@ import { RouterModule } from '@angular/router';
         (toggle)="handleToggle(todo.id)"
       ></app-todo-item>
     </div>
-    <a routerLink="/add" class="add-btn">Add Todo</a>
   `,
   styles: [
     `
-      .todo-container {
-        margin: 10px 0;
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
       }
+
+      h2 {
+        margin: 0;
+      }
+
+      .todo-container {
+        margin-bottom: 15px;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 30px;
+        opacity: 0.8;
+      }
+
       .add-btn {
-        display: inline-block;
-        margin-top: 10px;
-        padding: 8px 16px;
-        background: #1976d2;
-        color: white;
+        background: white;
+        color: #1e3c72;
+        padding: 10px 18px;
+        border-radius: 10px;
         text-decoration: none;
-        border-radius: 4px;
+        font-weight: 600;
+        transition: 0.3s ease;
+      }
+
+      .add-btn:hover {
+        transform: translateY(-2px);
+        background: #f0f0f0;
       }
     `,
   ],
